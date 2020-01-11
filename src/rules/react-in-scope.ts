@@ -12,7 +12,7 @@ import {getFromContext} from '../util/pragma';
 // Rule Definition
 // -----------------------------------------------------------------------------
 
-export default {
+export = {
 	meta: {
 		fixable: true,
 		docs: {

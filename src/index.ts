@@ -1,6 +1,7 @@
 module.exports = {
 	rules: {
 		'react-in-scope': require('./rules/react-in-scope'),
-		'no-full-import': require('./rules/no-full-import')
+		'no-full-import': require('./rules/no-full-import'),
+		'auto-import': require('./rules/auto-import')
 	}
 };
