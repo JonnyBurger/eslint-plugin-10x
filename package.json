@@ -7,7 +7,7 @@
     "test": "tsc && ava dist/test/*.js",
     "prepublish": "tsc"
   },
-  "author": "",
+  "author": "Jonny Burger <jonny.io>",
   "license": "ISC",
   "devDependencies": {
     "@jonny/eslint-config": "^2.1.53",
