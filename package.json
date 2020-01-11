@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-tenx",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -18,5 +18,7 @@
   "peerDependencies": {
     "eslint": "^6.8.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "jsx-ast-utils": "^2.2.3"
+  }
 }

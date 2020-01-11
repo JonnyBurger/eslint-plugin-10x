@@ -3,6 +3,7 @@
  * @author Mark Macdonald
  */
 'use strict';
+import {isDOMComponent} from '../util/jsx';
 
 //------------------------------------------------------------------------------
 // Helpers
@@ -22,6 +23,8 @@ function hasTypeOfOperator(node): boolean {
 //------------------------------------------------------------------------------
 // Rule Definition
 //------------------------------------------------------------------------------
+
+const allowGlobals = false;
 
 export = {
 	meta: {
@@ -54,7 +57,93 @@ export = {
 
 		const map = options.imports || {};
 
+		function checkIdentifierInJSX(node): any {
+			let scope = context.getScope();
+			const sourceCode = context.getSourceCode();
+			const {sourceType} = sourceCode.ast;
+			let {variables} = scope;
+			let scopeType = 'global';
+			let i;
+			let len;
+
+			// Ignore 'this' keyword (also maked as JSXIdentifier when used in JSX)
+			if (node.name === 'this') {
+				return;
+			}
+
+			if (!allowGlobals && sourceType === 'module') {
+				scopeType = 'module';
+			}
+
+			while (scope.type !== scopeType) {
+				scope = scope.upper;
+				variables = scope.variables.concat(variables);
+			}
+			if (scope.childScopes.length) {
+				variables = scope.childScopes[0].variables.concat(variables);
+				// Temporary fix for babel-eslint
+				if (scope.childScopes[0].childScopes.length) {
+					variables = scope.childScopes[0].childScopes[0].variables.concat(
+						variables
+					);
+				}
+			}
+
+			for (i = 0, len = variables.length; i < len; i++) {
+				if (variables[i].name === node.name) {
+					return;
+				}
+			}
+			const fixable = Boolean(map[node.name]);
+
+			context.report(
+				Object.assign(
+					{
+						node,
+						message: [
+							`'${node.name}' is not defined.`,
+							fixable ? `Run --fix to add \`${map[node.name]}\`` : null
+						]
+							.filter(Boolean)
+							.join(' ')
+					},
+					map[node.name]
+						? {
+								fix: (fixer): any => {
+									return fixer.insertTextBefore(
+										sourceCode.ast,
+										map[node.name] + '\n'
+									);
+								}
+						  }
+						: {}
+				)
+			);
+		}
+
 		return {
+			JSXOpeningElement(node): any {
+				switch (node.name.type) {
+					case 'JSXIdentifier':
+						if (isDOMComponent(node)) {
+							return;
+						}
+						node = node.name;
+						break;
+					case 'JSXMemberExpression':
+						node = node.name;
+						do {
+							node = node.object;
+						} while (node && node.type !== 'JSXIdentifier');
+						break;
+					case 'JSXNamespacedName':
+						node = node.name.namespace;
+						break;
+					default:
+						break;
+				}
+				checkIdentifierInJSX(node);
+			},
 			'Program:exit'(/* node */): void {
 				const globalScope = context.getScope();
 				const sourceCode = context.getSourceCode();
@@ -75,16 +164,24 @@ export = {
 					if (!considerTypeOf && hasTypeOfOperator(identifier)) {
 						return;
 					}
+
+					const fixable = Boolean(map[identifier.name]);
+
 					context.report(
 						Object.assign(
 							{
 								node: identifier,
 								data: identifier,
-								message: `'${
-									identifier.name
-								}' is not defined. Run --fix to add \`${map[identifier.name]}\``
+								message: [
+									`'${identifier.name}' is not defined.`,
+									fixable
+										? `Run --fix to add \`${map[identifier.name]}\``
+										: null
+								]
+									.filter(Boolean)
+									.join(' ')
 							},
-							map[identifier.name]
+							fixable
 								? {
 										fix: (fixer): any => {
 											return fixer.insertTextBefore(

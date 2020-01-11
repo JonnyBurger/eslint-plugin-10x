@@ -68,6 +68,41 @@ ruleTester.run('tenx/auto-import', rule, {
 				}
 			],
 			output: 'import styled from "polished";\nconst Container = styled.div``'
+		},
+		{
+			code: 'export default () => <View></View>',
+			errors: [
+				{
+					ruleId: 'tenx/auto-import',
+					message:
+						'\'View\' is not defined. Run --fix to add `import {View} from "react-native";`'
+				}
+			],
+			options: [
+				{
+					imports: {
+						View: 'import {View} from "react-native";'
+					}
+				}
+			],
+			output:
+				'import {View} from "react-native";\nexport default () => <View></View>'
+		},
+		{
+			code: 'const a = b',
+			errors: [
+				{
+					ruleId: 'tenx/auto-import',
+					message: "'b' is not defined."
+				}
+			],
+			options: [
+				{
+					imports: {
+						styled: 'import styled from "styled-components";'
+					}
+				}
+			]
 		}
 	],
 	valid: [
