@@ -14,13 +14,13 @@ const ruleTester = avaRuleTester(test, {
 	}
 });
 
-ruleTester.run('10x/react-in-scope', rule, {
+ruleTester.run('20x/react-in-scope', rule, {
 	invalid: [
 		{
 			code: 'export default () => <div></div>',
 			errors: [
 				{
-					ruleId: '10x/react-in-scope',
+					ruleId: '20x/react-in-scope',
 					message: "'React' must be in scope when using JSX"
 				}
 			],
