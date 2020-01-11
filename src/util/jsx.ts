@@ -15,6 +15,9 @@ const COMPAT_TAG_REGEX = /^[a-z]|-/;
  */
 export function isDOMComponent(node): boolean {
 	let name = elementType(node);
+	if (!name) {
+		return false;
+	}
 
 	// Get namespace if the type is JSXNamespacedName or JSXMemberExpression
 	if (name.indexOf(':') > -1) {
