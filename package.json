@@ -1,0 +1,22 @@
+{
+  "name": "eslint-plugin-10x",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "tsc && ava dist/test/*.js",
+    "prepublish": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@jonny/eslint-config": "^2.1.53",
+    "ava": "^2.4.0",
+    "eslint-ava-rule-tester": "^4.0.0",
+    "typescript": "^3.7.4"
+  },
+  "peerDependencies": {
+    "eslint": "^6.8.0"
+  },
+  "dependencies": {}
+}

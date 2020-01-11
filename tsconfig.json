@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "target": "ES2015",
+        "allowSyntheticDefaultImports": true,
+        "module": "commonjs",
+        "esModuleInterop": true
+    },
+    "include": ["./src"]
+}
