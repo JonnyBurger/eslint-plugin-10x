@@ -7,6 +7,14 @@
     "test": "tsc && ava dist/test/*.js",
     "prepublish": "tsc"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JonnyBurger/eslint-plugin-10x.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JonnyBurger/eslint-plugin-10x/issues"
+  },
+  "homepage": "https://github.com/JonnyBurger/eslint-plugin-10x#readme",
   "author": "Jonny Burger <jonny.io>",
   "license": "ISC",
   "devDependencies": {
