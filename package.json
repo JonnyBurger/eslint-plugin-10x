@@ -1,32 +1,32 @@
 {
-  "name": "eslint-plugin-10x",
-  "version": "1.0.6",
-  "description": "",
-  "main": "dist/index.js",
-  "scripts": {
-    "test": "tsc && ava dist/test/*.js",
-    "prepublish": "tsc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/JonnyBurger/eslint-plugin-10x.git"
-  },
-  "bugs": {
-    "url": "https://github.com/JonnyBurger/eslint-plugin-10x/issues"
-  },
-  "homepage": "https://github.com/JonnyBurger/eslint-plugin-10x#readme",
-  "author": "Jonny Burger <jonny.io>",
-  "license": "ISC",
-  "devDependencies": {
-    "@jonny/eslint-config": "^2.1.53",
-    "ava": "^2.4.0",
-    "eslint-ava-rule-tester": "^4.0.0",
-    "typescript": "^3.7.4"
-  },
-  "peerDependencies": {
-    "eslint": "^6.8.0"
-  },
-  "dependencies": {
-    "jsx-ast-utils": "^2.2.3"
-  }
+	"name": "eslint-plugin-10x",
+	"version": "1.0.7",
+	"description": "",
+	"main": "dist/index.js",
+	"scripts": {
+		"test": "tsc && ava dist/test/*.js",
+		"prepublish": "tsc"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/JonnyBurger/eslint-plugin-10x.git"
+	},
+	"bugs": {
+		"url": "https://github.com/JonnyBurger/eslint-plugin-10x/issues"
+	},
+	"homepage": "https://github.com/JonnyBurger/eslint-plugin-10x#readme",
+	"author": "Jonny Burger <jonny.io>",
+	"license": "ISC",
+	"devDependencies": {
+		"@jonny/eslint-config": "^2.1.170",
+		"ava": "^2.4.0",
+		"eslint-ava-rule-tester": "^4.0.0",
+		"typescript": "^3.7.4"
+	},
+	"peerDependencies": {
+		"eslint": "^7.8.0"
+	},
+	"dependencies": {
+		"jsx-ast-utils": "^2.4.1"
+	}
 }
