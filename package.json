@@ -1,6 +1,6 @@
 {
 	"name": "eslint-plugin-10x",
-	"version": "1.0.7",
+	"version": "1.1.0",
 	"description": "",
 	"main": "dist/index.js",
 	"scripts": {
@@ -18,7 +18,7 @@
 	"author": "Jonny Burger <jonny.io>",
 	"license": "ISC",
 	"devDependencies": {
-		"@jonny/eslint-config": "^2.1.170",
+		"@jonny/eslint-config": "^2.1.177",
 		"ava": "^2.4.0",
 		"eslint-ava-rule-tester": "^4.0.0",
 		"typescript": "^3.7.4"
