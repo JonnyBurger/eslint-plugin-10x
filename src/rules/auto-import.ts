@@ -34,7 +34,7 @@ export = {
 			description: 'Automatically imports stuff that you specify',
 			category: 'Variables',
 			recommended: true,
-			url: 'https://eslint.org/docs/rules/no-undef'
+			url: 'https://eslint.org/docs/rules/no-undef',
 		},
 
 		schema: [
@@ -43,12 +43,12 @@ export = {
 				properties: {
 					imports: {
 						type: 'object',
-						default: {}
-					}
+						default: {},
+					},
 				},
-				additionalProperties: false
-			}
-		]
+				additionalProperties: false,
+			},
+		],
 	},
 
 	create(context): any {
@@ -102,10 +102,10 @@ export = {
 						node,
 						message: [
 							`'${node.name}' is not defined.`,
-							fixable ? `Run --fix to add \`${map[node.name]}\`` : null
+							fixable ? `Run --fix to add \`${map[node.name]}\`` : null,
 						]
 							.filter(Boolean)
-							.join(' ')
+							.join(' '),
 					},
 					map[node.name]
 						? {
@@ -114,7 +114,7 @@ export = {
 										sourceCode.ast,
 										map[node.name] + '\n'
 									);
-								}
+								},
 						  }
 						: {}
 				)
@@ -153,12 +153,12 @@ export = {
 						node: sourceCode.ast,
 						data: sourceCode.ast,
 						message:
-							'Rule tenx/auto-import is enabled but there are no replacements specified. Get started by specifying an object as an option to the ESLint rule: ["error", {imports: {sortBy: `import sortBy from "lodash/sortBy"`}}]'
+							'Rule tenx/auto-import is enabled but there are no replacements specified. Get started by specifying an object as an option to the ESLint rule: ["error", {imports: {sortBy: `import sortBy from "lodash/sortBy"`}}]',
 					});
 					return;
 				}
 
-				globalScope.through.forEach(ref => {
+				globalScope.through.forEach((ref) => {
 					const {identifier} = ref;
 
 					if (!considerTypeOf && hasTypeOfOperator(identifier)) {
@@ -166,35 +166,34 @@ export = {
 					}
 
 					const fixable = Boolean(map[identifier.name]);
-
-					context.report(
-						Object.assign(
-							{
-								node: identifier,
-								data: identifier,
-								message: [
-									`'${identifier.name}' is not defined.`,
-									fixable
-										? `Run --fix to add \`${map[identifier.name]}\``
-										: null
-								]
-									.filter(Boolean)
-									.join(' ')
-							},
-							fixable
-								? {
-										fix: (fixer): any => {
-											return fixer.insertTextBefore(
-												sourceCode.ast,
-												map[identifier.name] + '\n'
-											);
-										}
-								  }
-								: {}
-						)
-					);
+					if (fixable) {
+						context.report(
+							Object.assign(
+								{
+									node: identifier,
+									data: identifier,
+									message: [
+										`'${identifier.name}' is not defined.`,
+										`Run --fix to add \`${map[identifier.name]}\``,
+									]
+										.filter(Boolean)
+										.join(' '),
+								},
+								fixable
+									? {
+											fix: (fixer): any => {
+												return fixer.insertTextBefore(
+													sourceCode.ast,
+													map[identifier.name] + '\n'
+												);
+											},
+									  }
+									: {}
+							)
+						);
+					}
 				});
-			}
+			},
 		};
-	}
+	},
 };
