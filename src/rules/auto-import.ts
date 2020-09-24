@@ -96,29 +96,31 @@ export = {
 			}
 			const fixable = Boolean(map[node.name]);
 
-			context.report(
-				Object.assign(
-					{
-						node,
-						message: [
-							`'${node.name}' is not defined.`,
-							fixable ? `Run --fix to add \`${map[node.name]}\`` : null,
-						]
-							.filter(Boolean)
-							.join(' '),
-					},
-					map[node.name]
-						? {
-								fix: (fixer): any => {
-									return fixer.insertTextBefore(
-										sourceCode.ast,
-										map[node.name] + '\n'
-									);
-								},
-						  }
-						: {}
-				)
-			);
+			if (fixable) {
+				context.report(
+					Object.assign(
+						{
+							node,
+							message: [
+								`'${node.name}' is not defined.`,
+								`Run --fix to add \`${map[node.name]}\``,
+							]
+								.filter(Boolean)
+								.join(' '),
+						},
+						map[node.name]
+							? {
+									fix: (fixer): any => {
+										return fixer.insertTextBefore(
+											sourceCode.ast,
+											map[node.name] + '\n'
+										);
+									},
+							  }
+							: {}
+					)
+				);
+			}
 		}
 
 		return {

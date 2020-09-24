@@ -4,14 +4,14 @@ import rule from '../rules/auto-import';
 
 const ruleTester = avaRuleTester(test, {
 	env: {
-		es6: true
+		es6: true,
 	},
 	parserOptions: {
 		sourceType: 'module',
 		ecmaFeatures: {
-			jsx: true
-		}
-	}
+			jsx: true,
+		},
+	},
 });
 
 ruleTester.run('tenx/auto-import', rule, {
@@ -22,34 +22,18 @@ ruleTester.run('tenx/auto-import', rule, {
 				{
 					ruleId: 'tenx/auto-import',
 					message:
-						'\'styled\' is not defined. Run --fix to add `import styled from "styled-components";`'
-				}
+						'\'styled\' is not defined. Run --fix to add `import styled from "styled-components";`',
+				},
 			],
 			options: [
 				{
 					imports: {
-						styled: 'import styled from "styled-components";'
-					}
-				}
+						styled: 'import styled from "styled-components";',
+					},
+				},
 			],
 			output:
-				'import styled from "styled-components";\nconst Container = styled.div``'
-		},
-		{
-			code: 'const a = "hi"',
-			errors: [
-				{
-					ruleId: 'tenx/auto-import',
-					message:
-						'Rule tenx/auto-import is enabled but there are no replacements specified. Get started by specifying an object as an option to the ESLint rule: ["error", {imports: {sortBy: `import sortBy from "lodash/sortBy"`}}]'
-				}
-			],
-			options: [
-				{
-					imports: {}
-				}
-			],
-			output: 'const a = "hi"'
+				'import styled from "styled-components";\nconst Container = styled.div``',
 		},
 		{
 			code: 'const Container = styled.div``',
@@ -57,17 +41,17 @@ ruleTester.run('tenx/auto-import', rule, {
 				{
 					ruleId: 'tenx/auto-import',
 					message:
-						'\'styled\' is not defined. Run --fix to add `import styled from "polished";`'
-				}
+						'\'styled\' is not defined. Run --fix to add `import styled from "polished";`',
+				},
 			],
 			options: [
 				{
 					imports: {
-						styled: 'import styled from "polished";'
-					}
-				}
+						styled: 'import styled from "polished";',
+					},
+				},
 			],
-			output: 'import styled from "polished";\nconst Container = styled.div``'
+			output: 'import styled from "polished";\nconst Container = styled.div``',
 		},
 		{
 			code: 'export default () => <View></View>',
@@ -75,35 +59,19 @@ ruleTester.run('tenx/auto-import', rule, {
 				{
 					ruleId: 'tenx/auto-import',
 					message:
-						'\'View\' is not defined. Run --fix to add `import {View} from "react-native";`'
-				}
+						'\'View\' is not defined. Run --fix to add `import {View} from "react-native";`',
+				},
 			],
 			options: [
 				{
 					imports: {
-						View: 'import {View} from "react-native";'
-					}
-				}
+						View: 'import {View} from "react-native";',
+					},
+				},
 			],
 			output:
-				'import {View} from "react-native";\nexport default () => <View></View>'
+				'import {View} from "react-native";\nexport default () => <View></View>',
 		},
-		{
-			code: 'const a = b',
-			errors: [
-				{
-					ruleId: 'tenx/auto-import',
-					message: "'b' is not defined."
-				}
-			],
-			options: [
-				{
-					imports: {
-						styled: 'import styled from "styled-components";'
-					}
-				}
-			]
-		}
 	],
 	valid: [
 		{
@@ -114,10 +82,10 @@ ruleTester.run('tenx/auto-import', rule, {
 			options: [
 				{
 					imports: {
-						styled: 'import styled from "styled-components";'
-					}
-				}
-			]
-		}
-	]
+						styled: 'import styled from "styled-components";',
+					},
+				},
+			],
+		},
+	],
 });
