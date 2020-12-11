@@ -22,9 +22,6 @@ ruleTester.run('tenx/react-in-scope', rule, {
 				{
 					message: "'React' must be in scope when using JSX",
 				},
-				{
-					message: "'React' must be in scope when using JSX",
-				},
 			],
 			output:
 				'import React from "react";\nexport default () => <div><span></span></div>',

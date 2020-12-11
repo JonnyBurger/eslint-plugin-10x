@@ -12,7 +12,6 @@ const ruleTester = avaRuleTester(test, {
 	},
 });
 
-// @ts-ignore
 ruleTester.run('small-import/forbid-native-components', rule, {
 	invalid: [
 		{
