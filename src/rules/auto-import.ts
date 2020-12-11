@@ -97,29 +97,25 @@ export = {
 			const fixable = Boolean(map[node.name]);
 
 			if (fixable) {
-				context.report(
-					Object.assign(
-						{
-							node,
-							message: [
-								`'${node.name}' is not defined.`,
-								`Run --fix to add \`${map[node.name]}\``,
-							]
-								.filter(Boolean)
-								.join(' '),
-						},
-						map[node.name]
-							? {
-									fix: (fixer): any => {
-										return fixer.insertTextBefore(
-											sourceCode.ast,
-											map[node.name] + '\n'
-										);
-									},
-							  }
-							: {}
-					)
-				);
+				context.report({
+					node,
+					message: [
+						`'${node.name}' is not defined.`,
+						`Run --fix to add \`${map[node.name]}\``,
+					]
+						.filter(Boolean)
+						.join(' '),
+					...(map[node.name]
+						? {
+								fix: (fixer): any => {
+									return fixer.insertTextBefore(
+										sourceCode.ast,
+										map[node.name] + '\n'
+									);
+								},
+						  }
+						: {}),
+				});
 			}
 		}
 
@@ -169,30 +165,26 @@ export = {
 
 					const fixable = Boolean(map[identifier.name]);
 					if (fixable) {
-						context.report(
-							Object.assign(
-								{
-									node: identifier,
-									data: identifier,
-									message: [
-										`'${identifier.name}' is not defined.`,
-										`Run --fix to add \`${map[identifier.name]}\``,
-									]
-										.filter(Boolean)
-										.join(' '),
-								},
-								fixable
-									? {
-											fix: (fixer): any => {
-												return fixer.insertTextBefore(
-													sourceCode.ast,
-													map[identifier.name] + '\n'
-												);
-											},
-									  }
-									: {}
-							)
-						);
+						context.report({
+							node: identifier,
+							data: identifier,
+							message: [
+								`'${identifier.name}' is not defined.`,
+								`Run --fix to add \`${map[identifier.name]}\``,
+							]
+								.filter(Boolean)
+								.join(' '),
+							...(fixable
+								? {
+										fix: (fixer): any => {
+											return fixer.insertTextBefore(
+												sourceCode.ast,
+												map[identifier.name] + '\n'
+											);
+										},
+								  }
+								: {}),
+						});
 					}
 				});
 			},

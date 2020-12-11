@@ -5,11 +5,11 @@ const avaRuleTester = require('eslint-ava-rule-tester');
 
 const ruleTester = avaRuleTester(test, {
 	env: {
-		es6: true
+		es6: true,
 	},
 	parserOptions: {
-		sourceType: 'module'
-	}
+		sourceType: 'module',
+	},
 });
 
 // @ts-ignore
@@ -19,48 +19,44 @@ ruleTester.run('small-import/forbid-native-components', rule, {
 			code: 'import {max} from "lodash"',
 			errors: [
 				{
-					ruleId: 'small-import/forbid-native-components',
 					message:
-						'Import only this function instead of the whole lodash package'
-				}
+						'Import only this function instead of the whole lodash package',
+				},
 			],
-			output: 'import max from "lodash/max";'
+			output: 'import max from "lodash/max";',
 		},
 		{
 			code: 'import {max} from "underscore"',
 			options: [{packages: {underscore: '/'}}],
 			errors: [
 				{
-					ruleId: 'small-import/forbid-native-components',
 					message:
-						'Import only this function instead of the whole underscore package'
-				}
+						'Import only this function instead of the whole underscore package',
+				},
 			],
-			output: 'import max from "underscore/max";'
+			output: 'import max from "underscore/max";',
 		},
 		{
 			code: 'import {startOfDay} from "date-fns"',
 			errors: [
 				{
-					ruleId: 'small-import/forbid-native-components',
 					message:
-						'Import only this function instead of the whole date-fns package'
-				}
+						'Import only this function instead of the whole date-fns package',
+				},
 			],
-			output: 'import startOfDay from "date-fns/startOfDay";'
+			output: 'import startOfDay from "date-fns/startOfDay";',
 		},
 		{
 			code: 'import {sortBy, groupBy, max} from "lodash"',
 			errors: [
 				{
-					ruleId: 'small-import/forbid-native-components',
 					message:
-						'Import only this function instead of the whole lodash package'
-				}
+						'Import only this function instead of the whole lodash package',
+				},
 			],
 			output:
-				'import sortBy from "lodash/sortBy";\nimport groupBy from "lodash/groupBy";\nimport max from "lodash/max";'
-		}
+				'import sortBy from "lodash/sortBy";\nimport groupBy from "lodash/groupBy";\nimport max from "lodash/max";',
+		},
 	],
 	valid: [
 		'import {Text} from "react-native-normalized"',
@@ -93,6 +89,6 @@ ruleTester.run('small-import/forbid-native-components', rule, {
 			import React, {Component, ReactElement} from 'react';
 			import {Text, ActivityIndicator} from 'react-native-normalized';
 			import {StyleSheet, View, Platform} from 'react-native';
-		`
-	]
+		`,
+	],
 });

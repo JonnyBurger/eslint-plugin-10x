@@ -4,28 +4,31 @@ import rule from '../rules/react-in-scope';
 
 const ruleTester = avaRuleTester(test, {
 	env: {
-		es6: true
+		es6: true,
 	},
 	parserOptions: {
 		sourceType: 'module',
 		ecmaFeatures: {
-			jsx: true
-		}
-	}
+			jsx: true,
+		},
+	},
 });
 
 ruleTester.run('tenx/react-in-scope', rule, {
 	invalid: [
 		{
-			code: 'export default () => <div></div>',
+			code: 'export default () => <div><span></span></div>',
 			errors: [
 				{
-					ruleId: 'tenx/react-in-scope',
-					message: "'React' must be in scope when using JSX"
-				}
+					message: "'React' must be in scope when using JSX",
+				},
+				{
+					message: "'React' must be in scope when using JSX",
+				},
 			],
-			output: 'import React from "react";\nexport default () => <div></div>'
-		}
+			output:
+				'import React from "react";\nexport default () => <div><span></span></div>',
+		},
 	],
-	valid: ['import React from "react";\nexport default () => <div></div>']
+	valid: ['import React from "react";\nexport default () => <div></div>'],
 });
