@@ -16,7 +16,7 @@
 	},
 	"homepage": "https://github.com/JonnyBurger/eslint-plugin-10x#readme",
 	"author": "Jonny Burger <jonny.io>",
-	"license": "ISC",
+	"license": "MIT",
 	"devDependencies": {
 		"@jonny/eslint-config": "^2.1.177",
 		"ava": "^2.4.0",
