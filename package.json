@@ -24,7 +24,7 @@
 		"typescript": "^3.7.4"
 	},
 	"peerDependencies": {
-		"eslint": "^7.8.0"
+		"eslint": ">=7.8.0"
 	},
 	"dependencies": {
 		"jsx-ast-utils": "^2.4.1"
